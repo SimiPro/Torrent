@@ -1,0 +1,29 @@
+d 
+	8:announce
+	29:http://tracker.ex.ua/announce
+	13:creation date
+	i1398286480e
+	4:info
+	d
+		5:files
+		l
+			d
+				6:length
+				i172142030e
+				4:path
+				l
+					25:tvp-himym-s09e07-480p.mkv
+				e
+			e
+			d
+				6:length
+				i5982e
+				4:path
+				l
+				25:tvp-himym-s09e07-480p.nfo
+				e
+			e
+		e
+		4:name
+		80:How.I.Met.Your.Mother.S09E07.No.Questions.Asked.GERMAN.DUBBED.WS.WEBRip.x264-TVP
+		12:piece lengthi262144e6:pieces13140:��b�%�
