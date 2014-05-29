@@ -39,10 +39,18 @@ class SetSpec extends StorrentSpec {
 	assert(Hello2.getString("d4:spaml1:a1:bee")  == "{spam => [a,b]}")
   }
   
-    "d5:spam1l1:a1:be3:cow3:moo5:spam24:eggse" should "be transfered to  {spam => [a,b],cow => moo,spam => eggs}" in {
+  "d5:spam1l1:a1:be3:cow3:moo5:spam24:eggse" should "be transfered to  {spam => [a,b],cow => moo,spam => eggs}" in {
     println(Hello2.getString("d4:spaml1:a1:bee"))
 	assert(Hello2.getString("d5:spam1l1:a1:be3:cow3:moo5:spam24:eggse")  == "{spam1 => [a,b],cow => moo,spam2 => eggs}")
   }
-   
+  
+  "d3:egg1:aed3egg1:a" should "be transfered to {egg => a}{egg => a}" in {
+    assert(Hello2.getString("d3:egg1:aed3:egg1:ae") == "{egg => a}{egg => a}")
+  }
+  
+  "d3:eggd1:ai24eee" should "be transfered to {egg => {a => 24}}" in {
+    println(Hello2.getString("d3:eggd1:ai24eee"))
+	 assert(Hello2.getString("d3:eggd1:ai24eee") == "{egg => {a => 24}}")
+  }
   
 }

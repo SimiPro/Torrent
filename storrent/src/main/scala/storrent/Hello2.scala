@@ -12,7 +12,7 @@ import storrent.states.StateContext
 import storrent.states.StateContext
 
 object Hello2 {
- var fileName = "/home/simipro/git/STorrent/storrent/src/test/java/storrent/core/bencode/torr.torrent"
+ var fileName = "/home/simipro/git/STorrent/storrent/src/test/java/storrent/core/bencode/test.to"
  var byteArray = Files.readAllBytes(Paths.get(fileName))
   
   def main(args: Array[String]) {

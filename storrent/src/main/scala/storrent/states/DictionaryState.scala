@@ -21,6 +21,7 @@ package storrent.states
     	      		STATE_CONTEXT.addDictionary(dictContext.getMap)
     	            STATE_CONTEXT.setDefault
     	      	}
+    	      	case 'd' => STATE_CONTEXT.setState(new StateWrapper(dictContext, new DictionaryState(dictContext)))
 	    	   	case 'i' => STATE_CONTEXT.setState(new StateWrapper(dictContext, new IntState()))
 	    	   	case 'l' => STATE_CONTEXT.setState(new StateWrapper(dictContext, new ListState(dictContext)))
 	    	   	case default => STATE_CONTEXT.setState(new StateWrapper(dictContext,new StringState(default)))

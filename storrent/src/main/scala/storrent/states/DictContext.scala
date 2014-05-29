@@ -43,8 +43,23 @@ import scala.collection.mutable.MutableList
 	      key = ""
 	    }
 	     
-		   override def setDefault() = {
-	      	  STATE_CONTEXT.setState(new DictionaryState(STATE_CONTEXT, this))
-	    	}	
+	   override def setDefault() = {
+      	  STATE_CONTEXT.setState(new DictionaryState(STATE_CONTEXT, this))
+       }
+	   
+	       
+	 override def addDictionary(mapToAdd:LinkedHashMap[String,String]):Unit = {
+	    var result = new StringBuilder()
+		if (!mapToAdd.isEmpty) {
+       	   println(mapToAdd)
+     	   result.append("{")
+     	   result.append(mapToAdd.head._1).append(" => ").append(mapToAdd.head._2)
+       	   mapToAdd.tail.foreach(T => result.append(',').append(T._1).append(" => ").append(T._2))
+       	   result.append("}")
+	     }
+	     map += key -> result.toString
+	     key = ""
+     }
+}
+	   
 	      
-      }
