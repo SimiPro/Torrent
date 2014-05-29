@@ -3,6 +3,7 @@ package storrent
 import scala.collection.mutable.Map
 import scala.collection.mutable.MutableList
 import scala.collection.mutable.LinkedHashMap
+import storrent.states.prints.PrettyMutableList
 
  
 class TorrentFile(
@@ -10,7 +11,7 @@ class TorrentFile(
     lists:MutableList[MutableList[String]] = MutableList[MutableList[String]](),
     //Really need ints list what case for?
     ints:MutableList[Int] = MutableList[Int](),
-    strings:MutableList[String] = MutableList[String]()) {
+    strings:MutableList[String] = new PrettyMutableList()) {
     
     
     def addInt(int:String) = {
@@ -35,14 +36,14 @@ class TorrentFile(
      var result =  strings.addString(new StringBuilder())
      
      //list
-     if (!lists.isEmpty) {
-	     lists.foreach(A => {
-	       result.append("[")
-	       result.append(A.head)
-	       A.tail.foreach(result.append(',').append(_))
-	       result.append("]")
-	     })
-     }
+	     if (!lists.isEmpty) {
+		     lists.foreach(A => {
+		       result.append("[")
+		       result.append(A.head)
+		       A.tail.foreach(result.append(',').append(_))
+		       result.append("]")
+		     })
+	     }
      
      if (!dictionarys.isEmpty) {
        	 dictionarys.foreach(A => {

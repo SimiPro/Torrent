@@ -15,22 +15,26 @@ object Hello2 {
  var fileName = "/home/simipro/git/STorrent/storrent/src/test/java/storrent/core/bencode/torr.torrent"
  var byteArray = Files.readAllBytes(Paths.get(fileName))
   
-//  def main(args: Array[String]) {
-//      var line = new TorrentFile
-//      byteArray = "4:spam".getBytes()
-//      
-//      for (x <- 0 until byteArray.length) {
-//        var actualByte = byteArray(x)
-//        fileContext.write(actualByte)
-//      }
-//      println(fileContext.getTorrent.toString)
-// }
+  def main(args: Array[String]) {
+      var line = new TorrentFile
+      byteArray = Files.readAllBytes(Paths.get(fileName))
+      println(getStringByBytes(byteArray))
+ }
  
  def getString(input:String):String =  {
    var fileContext = new StateContext()
    byteArray = input.getBytes()
    for (x <- 0 until byteArray.length) {
         var actualByte = byteArray(x)
+        fileContext.write(actualByte)
+   }
+   fileContext.getTorrent.toString
+ }
+ 
+  def getStringByBytes(input:Array[Byte]):String =  {
+   var fileContext = new StateContext()
+   for (x <- 0 until input.length) {
+        var actualByte = input(x)
         fileContext.write(actualByte)
    }
    fileContext.getTorrent.toString

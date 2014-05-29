@@ -22,6 +22,7 @@ package storrent.states
     	            STATE_CONTEXT.setDefault
     	      	}
 	    	   	case 'i' => STATE_CONTEXT.setState(new StateWrapper(dictContext, new IntState()))
+	    	   	case 'l' => STATE_CONTEXT.setState(new StateWrapper(dictContext, new ListState(dictContext)))
 	    	   	case default => STATE_CONTEXT.setState(new StateWrapper(dictContext,new StringState(default)))
           }
     	}
