@@ -28,6 +28,9 @@ class ListState(STATE_CONTEXT:StateContext, listContext:ListContext) extends Sta
 	    	   	  wrap = new StateWrapper(listContext, new IntState())
 	    	   	  STATE_CONTEXT.setState(wrap)
 	    	   	}
+	    	   	case 'd' => {
+	    	   		STATE_CONTEXT.setState(new StateWrapper(listContext, new DictionaryState(listContext)))
+	    	   	}
 	    	   	case default => {
 	    	   	  wrap = new StateWrapper(listContext, new StringState(default))
 	    	   	  STATE_CONTEXT.setState(wrap)

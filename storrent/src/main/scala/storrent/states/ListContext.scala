@@ -12,6 +12,7 @@ class ListContext(STATE_CONTEXT:StateContext) extends StateContext {
 		   override def addString(string:String) = {
 		      reallist += string
 		    }
+		   
 		    
 		   override def setDefault() = {
 	      	  STATE_CONTEXT.setState(new ListState(STATE_CONTEXT, this))

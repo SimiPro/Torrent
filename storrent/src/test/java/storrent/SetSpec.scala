@@ -49,8 +49,12 @@ class SetSpec extends StorrentSpec {
   }
   
   "d3:eggd1:ai24eee" should "be transfered to {egg => {a => 24}}" in {
-    println(Hello2.getString("d3:eggd1:ai24eee"))
 	 assert(Hello2.getString("d3:eggd1:ai24eee") == "{egg => {a => 24}}")
   }
+  
+  "ld3:eggi25eee" should "be transfered to [{egg => 25}]" in {
+     assert(Hello2.getString("ld3:eggi25eee") == "[{egg => 25}]")
+  }
+
   
 }
