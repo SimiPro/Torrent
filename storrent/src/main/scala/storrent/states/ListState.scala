@@ -17,23 +17,19 @@ class ListState(STATE_CONTEXT:StateContext, listContext:ListContext) extends Sta
 //		       STATE_CONTEXT.setState(new ListState())
 //		    }
     	  
-    	  var wrap:StateWrapper = new StateWrapper(listContext, new IntState())
-       
     	    byte.toChar match {
 	    	    case 'e' => {
 	    	    	STATE_CONTEXT.setDefault
 	    	    	STATE_CONTEXT.addList(listContext.getList)
 	    	    } 
 	    	   	case 'i' => {
-	    	   	  wrap = new StateWrapper(listContext, new IntState())
-	    	   	  STATE_CONTEXT.setState(wrap)
+	    	   	  STATE_CONTEXT.setState(new StateWrapper(listContext, new IntState()))
 	    	   	}
 	    	   	case 'd' => {
 	    	   		STATE_CONTEXT.setState(new StateWrapper(listContext, new DictionaryState(listContext)))
 	    	   	}
 	    	   	case default => {
-	    	   	  wrap = new StateWrapper(listContext, new StringState(default))
-	    	   	  STATE_CONTEXT.setState(wrap)
+	    	   	  STATE_CONTEXT.setState(new StateWrapper(listContext, new StringState(default)))
 	    	   	}
     	   }
     	  

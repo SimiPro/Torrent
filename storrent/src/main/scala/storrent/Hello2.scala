@@ -12,12 +12,11 @@ import storrent.states.StateContext
 import storrent.states.StateContext
 
 object Hello2 {
- var fileName = "/home/simipro/git/STorrent/storrent/src/test/java/storrent/core/bencode/test.to"
+ var fileName = new File("").getAbsolutePath() + "/src/test/java/storrent/core/bencode/test.to"
  var byteArray = Files.readAllBytes(Paths.get(fileName))
-  
-  def main(args: Array[String]) {
+
+ def main(args: Array[String]) {
       var line = new TorrentFile
-      byteArray = Files.readAllBytes(Paths.get(fileName))
       println(getStringByBytes(byteArray))
  }
  
