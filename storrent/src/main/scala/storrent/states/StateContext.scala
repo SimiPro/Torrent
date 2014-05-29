@@ -1,7 +1,8 @@
 package storrent.states
 
 import storrent.TorrentFile
-import scala.collection.mutable.Map
+import scala.collection.mutable.LinkedHashMap
+import scala.collection.mutable.MutableList
 
   class StateContext {
     var state:StateLike = new NoState()
@@ -35,11 +36,11 @@ import scala.collection.mutable.Map
       getTorrent.addInt(int)
     }
     
-    def addList(list:List[String]):Unit = {
+    def addList(list:MutableList[String]):Unit = {
       getTorrent.addList(list)
     }
     
-    def addDictionary(map:Map[String,String]):Unit = {
+    def addDictionary(map:LinkedHashMap[String,String]):Unit = {
       getTorrent.addDictionary(map)
     }
     

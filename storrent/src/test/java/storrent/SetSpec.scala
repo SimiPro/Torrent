@@ -1,33 +1,38 @@
 package storrent
 
 import org.scalatest.Spec
+import storrent.unittest.StorrentSpec
 
-class SetSpec extends Spec {
+class SetSpec extends StorrentSpec {
 
-//  object `A Set` {
-//    
-//    object `when empty` {
-//        
-//	  def `4:spam` {
-//	    assert(Hello2.getString("4:spam") == "spam")
-//	  }
-//	  
-//	  def `4:spam:5:lenght` {
-//	    assert(Hello2.getString("4:spam:5:lenght") == "spamlenght")
-//	  }
-//    
-//    }
-//  }
-  object `A Set` {
-    object `when empty` {
-      def `should have size 0` {
-         assert(Hello2.getString("4:spam") == "spam")
-      }
-
-      def `should produce NoSuchElementException when head is invoked` {
-        assert(Hello2.getString("4:spam:5:lenght") == "spamlenght")
-      }
-    }
+  
+  "4:spam" should "be transferd to spam" in {
+     assert(Hello2.getString("4:spam") == "spam")
   }
+  
+  "4:spam:6:lenght" should "be transfered to spam,lenght" in {
+    assert(Hello2.getString("4:spam6:lenght") == "spamlenght")
+  }
+  
+  "i24e" should "be transfered to 24" in {
+    assert(Hello2.getString("i24e") == "24")
+  }
+  
+  "5:radioi25e" should "be transfered to radio25" in {
+     assert(Hello2.getString("5:radioi25e") == "radio25")
+  }
+  
+  "l4:spam4:eggse" should "be transfered to [spam,eggs]" in {
+     assert(Hello2.getString("l4:spam4:eggse") == "[spam,eggs]")
+  }
+  
+  "l4:spam4:eggsei24e" should "be transfered to 24[spam,eggs]" in {
+	 assert(Hello2.getString("l4:spam4:eggsei24e") == "24[spam,eggs]")
+  }
+  
+  "d3:cow3:moo4:spam4:eggse" should "be transfered to  {cow => moo,spam => eggs}" in {
+	assert(Hello2.getString("d3:cow3:moo4:spam4:eggse")  == "{cow => moo,spam => eggs}")
+  }
+  
   
 }

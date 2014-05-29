@@ -1,28 +1,13 @@
 package storrent.states
 
+import scala.collection.mutable.MutableList
 
 
-   class ListState(list:List[String] = List()) extends StateLike {
-       var listContext:ListContext = new ListContext()
-      
-       class ListContext extends StateContext {
-         var list:List[String] = List()
-         
-         
-       override def addInt(int:String) = {
-	      list :+ int
-	    }
-	    
-	   override def addString(string:String) = {
-	      list :+ string
-	    }
-	    
-	   override def setDefault() = {
-    		setState(new ListState())
-    	}	
-         
-       } 
-       
+
+class ListState(STATE_CONTEXT:StateContext, listContext:ListContext) extends StateLike {
+  def this(STATE_CONTEXT:StateContext){
+    this(STATE_CONTEXT, new ListContext(STATE_CONTEXT))
+  }
       
     	def write(STATE_CONTEXT:StateContext, byte:Byte) =  {
     		
@@ -31,14 +16,22 @@ package storrent.states
 //		    case 'l' => {
 //		       STATE_CONTEXT.setState(new ListState())
 //		    }
+    	  
+    	  var wrap:StateWrapper = new StateWrapper(listContext, new IntState())
        
     	    byte.toChar match {
 	    	    case 'e' => {
-	    	    	STATE_CONTEXT.addList(list)
 	    	    	STATE_CONTEXT.setDefault
+	    	    	STATE_CONTEXT.addList(listContext.getList)
 	    	    } 
-	    	   	case 'i' => STATE_CONTEXT.setState(new StateWrapper(listContext, new IntState()))
-	    	   	case default => STATE_CONTEXT.setState(new StateWrapper(listContext, new StringState(default)))
+	    	   	case 'i' => {
+	    	   	  wrap = new StateWrapper(listContext, new IntState())
+	    	   	  STATE_CONTEXT.setState(wrap)
+	    	   	}
+	    	   	case default => {
+	    	   	  wrap = new StateWrapper(listContext, new StringState(default))
+	    	   	  STATE_CONTEXT.setState(wrap)
+	    	   	}
     	   }
     	  
     	  

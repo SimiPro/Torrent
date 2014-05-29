@@ -1,10 +1,11 @@
 package storrent.states
 
 
-import scala.collection.mutable.Map
 
- class DictionaryState extends StateLike {
-      var dictContext:DictContext = new DictContext()
+ class DictionaryState(STATE_CONTEXT:StateContext, dictContext:DictContext) extends StateLike {
+  def this(STATE_CONTEXT:StateContext){
+    this(STATE_CONTEXT, new DictContext(STATE_CONTEXT))
+  }
       
       
 	            

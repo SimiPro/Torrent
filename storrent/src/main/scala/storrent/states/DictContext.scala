@@ -1,12 +1,12 @@
 package storrent.states
 
-import scala.collection.mutable.Map
+import scala.collection.mutable.LinkedHashMap
 
- class DictContext extends StateContext {
-    	 var map:Map[String,String] = Map()
+ class DictContext(STATE_CONTEXT:StateContext) extends StateContext {
+    	 var map:LinkedHashMap[String,String] = LinkedHashMap()
     	 var key:String = ""
     	 
-    	 def getMap(): Map[String,String] = {
+    	 def getMap(): LinkedHashMap[String,String] = {
     	   map
     	 }
     	   
@@ -14,7 +14,7 @@ import scala.collection.mutable.Map
     		if (key.isEmpty()){
     		  key = int
     		} else {
-    		  map.put(key, int)
+    		  map += key -> int
     		  key = ""
     		}
     	 }
@@ -23,13 +23,13 @@ import scala.collection.mutable.Map
 	       if (key.isEmpty()){
     		  key = string
     		} else {
-    		  map.put(key, string)
+    		    map += key -> string
     		  key = ""
     		}
 	     }
 	     
-	     override def setDefault() = {
-    		 setState(new DictionaryState())
-    	 }
+		   override def setDefault() = {
+	      	  STATE_CONTEXT.setState(new DictionaryState(STATE_CONTEXT, this))
+	    	}	
 	      
       }

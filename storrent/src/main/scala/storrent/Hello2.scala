@@ -14,20 +14,20 @@ import storrent.states.StateContext
 object Hello2 {
  var fileName = "/home/simipro/git/STorrent/storrent/src/test/java/storrent/core/bencode/torr.torrent"
  var byteArray = Files.readAllBytes(Paths.get(fileName))
- var fileContext = new StateContext()
   
-  def main(args: Array[String]) {
-      var line = new TorrentFile
-      byteArray = "4:spam".getBytes()
-      
-      for (x <- 0 until byteArray.length) {
-        var actualByte = byteArray(x)
-        fileContext.write(actualByte)
-      }
-      println(fileContext.getTorrent.toString)
- }
+//  def main(args: Array[String]) {
+//      var line = new TorrentFile
+//      byteArray = "4:spam".getBytes()
+//      
+//      for (x <- 0 until byteArray.length) {
+//        var actualByte = byteArray(x)
+//        fileContext.write(actualByte)
+//      }
+//      println(fileContext.getTorrent.toString)
+// }
  
  def getString(input:String):String =  {
+   var fileContext = new StateContext()
    byteArray = input.getBytes()
    for (x <- 0 until byteArray.length) {
         var actualByte = byteArray(x)
