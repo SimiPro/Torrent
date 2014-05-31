@@ -4,8 +4,10 @@ import scala.collection.mutable.MutableList
 import scala.collection.mutable.LinkedHashMap
 import storrent.container.PrettyMap
 import storrent.container.PrettyMutableList
+import storrent.TorrentFile
+import storrent.TorrentFile
 
-class ListContext(STATE_CONTEXT: StateContext) extends StateContext {
+class ListContext(STATE_CONTEXT: StateContext) extends StateContext(STATE_CONTEXT.getTorrent) {
   var reallist: PrettyMutableList = new PrettyMutableList()
 
   override def addInt(int: String) = {

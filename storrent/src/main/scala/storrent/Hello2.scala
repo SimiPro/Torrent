@@ -33,8 +33,9 @@ object Hello2 {
   
   }
 
+  @deprecated
   def getString(input: String): String = {
-    var fileContext = new StateContext()
+    var fileContext = new StateContext(new TorrentFile())
     byteArray = input.getBytes("UTF-8")
     for (x <- 0 until byteArray.length) {
       var actualByte = byteArray(x)
@@ -44,18 +45,13 @@ object Hello2 {
   }
   
   def getTorrentByFilePath(path:String):TorrentFile = {
-    var fileContext = new StateContext(path)
-    byteArray = Files.readAllBytes(Paths.get(fileName))
-    for (x <- 0 until byteArray.length) {
-      var actualByte = byteArray(x)
-      fileContext.write(actualByte)
-    }
-    fileContext.getTorrent
+		  new TorrentFile(fileName)
   }
   
 
+  @deprecated
   def getStringByBytes(input: Array[Byte]): String = {
-    var fileContext = new StateContext()
+    var fileContext = new StateContext(new TorrentFile())
     for (x <- 0 until input.length) {
       var actualByte = input(x)
       fileContext.write(actualByte)

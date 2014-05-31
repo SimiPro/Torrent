@@ -11,6 +11,9 @@ import java.security.MessageDigest
 import java.io.FileInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
+import storrent.states.StateContext
+import java.nio.file.Files
+import java.nio.file.Paths
 
 class TorrentFile(
   dictionarys: MutableList[PrettyMap] = MutableList(),
@@ -24,6 +27,18 @@ class TorrentFile(
   def this(path:String) = {
     this()
     this.path = path
+    encode
+  }
+  
+  def encode() = {
+   // bencode
+   var fileContext = new StateContext(this)
+    var byteArray = Files.readAllBytes(Paths.get(path))
+    for (x <- 0 until byteArray.length) {
+      var actualByte = byteArray(x)
+      fileContext.write(actualByte)
+    }
+   
   }
 
   def addInt(int: String) = {

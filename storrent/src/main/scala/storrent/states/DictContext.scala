@@ -5,7 +5,7 @@ import scala.collection.mutable.MutableList
 import storrent.container.PrettyMap
 import storrent.container.PrettyMutableList
 
-class DictContext(STATE_CONTEXT: StateContext) extends StateContext {
+class DictContext(STATE_CONTEXT: StateContext) extends StateContext(STATE_CONTEXT.getTorrent) {
   var map: PrettyMap = new PrettyMap()
   var key: String = ""
 
