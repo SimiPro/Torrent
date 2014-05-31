@@ -18,19 +18,21 @@ import java.security.spec.RSAPublicKeySpec
 import scala.collection.mutable.MutableList
 import storrent.container.PrettyMutableList
 import java.security.MessageDigest
+import storrent.torrent.Torrent
+import java.text.SimpleDateFormat
+import java.util.Date
 
 object Hello2 {
   var fileName = new File("").getAbsolutePath() + "/src/test/java/storrent/core/bencode/sample.torrent"
   var byteArray = Files.readAllBytes(Paths.get(fileName))
 
   def main(args: Array[String]) {
-    
-    var torrent = new TorrentFile(fileName)
-    println(torrent.getRSAHash)
-    
-    
-  
-  
+
+    var torrent = Torrent.createTorrent(new TorrentFile(fileName))
+    println(torrent.getPieces)
+    println(torrent.getAnnounce)
+    println(torrent.getCreationDate)
+
   }
 
   @deprecated
@@ -43,11 +45,9 @@ object Hello2 {
     }
     fileContext.getTorrent.toString
   }
-  
-  def getTorrentByFilePath(path:String):TorrentFile = {
-		  new TorrentFile(fileName)
+  def getTorrentByFilePath(path: String): TorrentFile = {
+    new TorrentFile(fileName)
   }
-  
 
   @deprecated
   def getStringByBytes(input: Array[Byte]): String = {

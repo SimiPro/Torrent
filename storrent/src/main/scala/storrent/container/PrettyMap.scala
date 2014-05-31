@@ -3,9 +3,9 @@ package storrent.container
 import scala.collection.mutable.MutableList
 import scala.collection.mutable.LinkedHashMap
 
-class PrettyMap extends LinkedHashMap[String,Any] {
+class PrettyMap extends LinkedHashMap[String, Any] {
 
-  override def toString:String = {
+  override def toString: String = {
     var result = new StringBuilder()
     if (!this.isEmpty) {
       result.append("{")
@@ -15,5 +15,5 @@ class PrettyMap extends LinkedHashMap[String,Any] {
     }
     result.toString
   }
-  
+
 }

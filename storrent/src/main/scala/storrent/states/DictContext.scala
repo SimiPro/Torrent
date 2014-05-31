@@ -41,7 +41,7 @@ class DictContext(STATE_CONTEXT: StateContext) extends StateContext(STATE_CONTEX
   }
 
   override def addDictionary(mapToAdd: PrettyMap): Unit = {
-    map+= key -> mapToAdd
+    map += key -> mapToAdd
     key = ""
   }
 }

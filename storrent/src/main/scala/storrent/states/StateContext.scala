@@ -8,7 +8,7 @@ import storrent.container.PrettyMutableList
 import storrent.TorrentFile
 import storrent.TorrentFile
 
-class StateContext(file:TorrentFile) {
+class StateContext(file: TorrentFile) {
   var state: StateLike = new NoState()
 
   def getTorrent(): TorrentFile = {

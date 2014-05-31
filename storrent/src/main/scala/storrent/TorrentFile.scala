@@ -20,87 +20,86 @@ class TorrentFile(
   lists: MutableList[PrettyMutableList] = MutableList[PrettyMutableList](),
   //Really need ints list what case for?
   ints: MutableList[Int] = MutableList[Int](),
-  strings: PrettyMutableList =  new PrettyMutableList()) {
-  
+  strings: PrettyMutableList = new PrettyMutableList()) {
+
   var path = ""
-  
-  def this(path:String) = {
+
+  def this(path: String) = {
     this()
     this.path = path
     encode
   }
-  
+
   def encode() = {
-   // bencode
-   var fileContext = new StateContext(this)
+    // bencode
+    var fileContext = new StateContext(this)
     var byteArray = Files.readAllBytes(Paths.get(path))
     for (x <- 0 until byteArray.length) {
       var actualByte = byteArray(x)
       fileContext.write(actualByte)
     }
-   
+
   }
 
   def addInt(int: String) = {
     ints += int.toInt
     strings += int
   }
-  
-  def getValueByKey(key:String) : Any = {
-    var result:Any = Nil
+
+  def getValueByKey(key: String): Any = {
+    var result: Any = Nil
     dictionarys.foreach(M => {
-    	result = getValueByMap(key, M)
+      result = getValueByMap(key, M)
     })
     result
   }
-  
-  def getValueByMap(key:String, map:PrettyMap):Any = {
-      var result:Any = Nil
-      val value = map.getOrElse(key, false)
-      if (value != false){
-    	  result = value
+
+  def getValueByMap(key: String, map: PrettyMap): Any = {
+    var result: Any = Nil
+    val value = map.getOrElse(key, false)
+    if (value != false) {
+      result = value
+    }
+    map.foreach(T => {
+      if (T._2.isInstanceOf[PrettyMap]) {
+        var deep = getValueByMap(key, T._2.asInstanceOf[PrettyMap])
+        if (deep != Nil) {
+          result = deep
+        }
       }
-      map.foreach(T => {
-       if (T._2.isInstanceOf[PrettyMap]) {
-         var deep = getValueByMap(key, T._2.asInstanceOf[PrettyMap])
-         if (deep != Nil) {
-           result = deep
-         }
-       }
-      })
-      result
+    })
+    result
   }
-  
-    def getRSAHash():String = {
-       var ff:File = new File(this.path)
-	    var sha1:MessageDigest = MessageDigest.getInstance("SHA-1")
-	    var input:InputStream = new FileInputStream(ff)
-	    var builder = new StringBuilder
-	
-	    while (!builder.toString().endsWith("4:info")) {
-	        builder.append(input.read().toChar); // It's ASCII anyway.
-	    }
-	    var output = new ByteArrayOutputStream()
-	    var data = input.read()
-	    while (data  > -1) {
-	      output.write(data)
-	      data = input.read()
-	    }
-//	    var sha12 = output.toByteArray().sha1
-	    
-	    sha1.update(output.toByteArray(), 0, output.size() - 1);
-	    var hash = sha1.digest()
-	    input.close()
-	    println(sha1)
-	    
-	    var hextString = new StringBuffer
-	    for (x <- 0 until hash.length) {
-	      hextString.append(Integer.toHexString(0xFF & hash(x)))
-	    }
-	    System.out.println("Hex format : " + hextString.toString());
-	    hextString.toString()
-     }
-  
+
+  def getRSAHash(): String = {
+    var ff: File = new File(this.path)
+    var sha1: MessageDigest = MessageDigest.getInstance("SHA-1")
+    var input: InputStream = new FileInputStream(ff)
+    var builder = new StringBuilder
+
+    while (!builder.toString().endsWith("4:info")) {
+      builder.append(input.read().toChar); // It's ASCII anyway.
+    }
+    var output = new ByteArrayOutputStream()
+    var data = input.read()
+    while (data > -1) {
+      output.write(data)
+      data = input.read()
+    }
+    //	    var sha12 = output.toByteArray().sha1
+
+    sha1.update(output.toByteArray(), 0, output.size() - 1);
+    var hash = sha1.digest()
+    input.close()
+    println(sha1)
+
+    var hextString = new StringBuffer
+    for (x <- 0 until hash.length) {
+      hextString.append(Integer.toHexString(0xFF & hash(x)))
+    }
+    System.out.println("Hex format : " + hextString.toString());
+    hextString.toString()
+  }
 
   def addList(list: PrettyMutableList) = {
     lists += list
@@ -124,11 +123,11 @@ class TorrentFile(
         result.append(A.toString)
       })
     }
-    
+
     //directory
     if (!dictionarys.isEmpty) {
       dictionarys.foreach(A => {
-       result.append(A.toString)
+        result.append(A.toString)
       })
     }
     result.toString
