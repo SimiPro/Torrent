@@ -5,11 +5,17 @@ import scala.collection.mutable.LinkedHashMap
 import scala.collection.mutable.MutableList
 import storrent.container.PrettyMap
 import storrent.container.PrettyMutableList
+import storrent.TorrentFile
 
 class StateContext {
   var state: StateLike = new NoState()
   var file: TorrentFile = new TorrentFile()
 
+  def this(path:String) = {
+    this()
+    file = new TorrentFile(path)
+  }
+  
   def getTorrent(): TorrentFile = {
     file
   }
