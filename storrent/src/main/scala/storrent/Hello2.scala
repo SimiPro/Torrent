@@ -23,15 +23,19 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 object Hello2 {
-  var fileName = new File("").getAbsolutePath() + "/src/test/java/storrent/core/bencode/sample.torrent"
+  var fileName = new File("").getAbsolutePath() + "/src/test/java/storrent/core/bencode/torr.torrent"
   var byteArray = Files.readAllBytes(Paths.get(fileName))
 
   def main(args: Array[String]) {
-
-    var torrent = Torrent.createTorrent(new TorrentFile(fileName))
+var file = new TorrentFile(fileName)
+    var torrent = Torrent.createTorrent(file)
     println(torrent.getPieces)
     println(torrent.getAnnounce)
     println(torrent.getCreationDate)
+    println(torrent.getName)
+    println(torrent.getPieceLenght)
+    println(torrent.getLenght)
+    println(file.toString)
 
   }
 

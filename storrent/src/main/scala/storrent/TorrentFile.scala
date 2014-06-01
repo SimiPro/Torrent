@@ -14,6 +14,8 @@ import java.io.InputStream
 import storrent.states.StateContext
 import java.nio.file.Files
 import java.nio.file.Paths
+import scala.math.BigInt
+import java.math.BigInteger
 
 class TorrentFile(
   dictionarys: MutableList[PrettyMap] = MutableList(),
@@ -77,6 +79,8 @@ class TorrentFile(
     var input: InputStream = new FileInputStream(ff)
     var builder = new StringBuilder
 
+    
+    // Info Hash
     while (!builder.toString().endsWith("4:info")) {
       builder.append(input.read().toChar); // It's ASCII anyway.
     }
@@ -90,7 +94,6 @@ class TorrentFile(
 
     sha1.update(output.toByteArray(), 0, output.size() - 1);
     var hash = sha1.digest()
-    input.close()
     println(sha1)
 
     var hextString = new StringBuffer
@@ -98,7 +101,38 @@ class TorrentFile(
       hextString.append(Integer.toHexString(0xFF & hash(x)))
     }
     System.out.println("Hex format : " + hextString.toString());
-    hextString.toString()
+   
+    
+    // Multiple Torrent
+    input = new FileInputStream(ff)
+    builder = new StringBuilder
+     while (!builder.toString.endsWith(":pieces")) {
+      builder.append(input.read.toChar); // It's ASCII anyway.
+    }
+     var pieces = ""
+     data = input.read
+     while (data != ':') {
+       pieces += data
+       data = input.read
+       println(data.toChar)
+     }
+     var big:BigInt = new BigInteger(pieces)
+     var numberOfPieces = big/20
+     var listOfHashes = MutableList
+     for (i <- 1 to 2) {
+       var piece = new Array[Byte](20)
+       input.read(piece, 0, 20)
+       sha1.update(piece, 0, 19);
+       var hash = sha1.digest()
+       println(sha1)
+
+       var hextString = new StringBuffer
+	   for (x <- 0 until hash.length) {
+	     hextString.append(Integer.toHexString(0xFF & hash(x)))
+	   }
+     }
+     
+      hextString.toString
   }
 
   def addList(list: PrettyMutableList) = {
