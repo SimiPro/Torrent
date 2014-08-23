@@ -21,13 +21,24 @@ import java.security.MessageDigest
 import storrent.torrent.Torrent
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.net.URLEncoder
+import dispatch.url
+import dispatch.Http
+import dispatch._, Defaults._
 
 object Hello2 {
-  var fileName = new File("").getAbsolutePath() + "/src/test/java/storrent/core/bencode/torr.torrent"
+  var fileName = new File("").getAbsolutePath() + "/src/test/java/storrent/core/bencode/test.to"
   var byteArray = Files.readAllBytes(Paths.get(fileName))
 
   def main(args: Array[String]) {
-var file = new TorrentFile(fileName)
+    
+    for (x <- 0 until byteArray.length) {
+      var actualByte = byteArray(x)
+      
+     }    
+    
+    
+    var file = new TorrentFile(fileName)
     var torrent = Torrent.createTorrent(file)
     println(torrent.getPieces)
     println(torrent.getAnnounce)
@@ -35,10 +46,30 @@ var file = new TorrentFile(fileName)
     println(torrent.getName)
     println(torrent.getPieceLenght)
     println(torrent.getLenght)
-    println(file.toString)
+//    println(file.toString)
 
+//    val svc = url(torrent.getAnnounce)
+//    val tracker = Http(svc OK )
+
+
+    println("Conect to HTML: " + torrent.getAnnounce)
+    val svc = url(torrent.getAnnounce)
+    val tracker = Http(svc OK as.xml.Elem)
+    
+    for (str <- tracker)
+      println(str)
+    
+    println("HEXA" + URLEncoder.encode(new String(hex2bytes("64e48d5c37c6cf14ecfb5278a21c0d3cb28a7cad")), "UTF-8"))
+    
   }
+  
 
+  def hex2bytes(hex: String): Array[Byte] = {
+    hex.replaceAll("[^0-9A-Fa-f]", "").sliding(2, 2).toArray.map(Integer.parseInt(_, 16).toByte)
+  }
+  
+  
+  
   @deprecated
   def getString(input: String): String = {
     var fileContext = new StateContext(new TorrentFile())

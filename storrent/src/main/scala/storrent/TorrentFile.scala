@@ -16,6 +16,8 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import scala.math.BigInt
 import java.math.BigInteger
+import java.net.URL
+import java.net.URLEncoder
 
 class TorrentFile(
   dictionarys: MutableList[PrettyMap] = MutableList(),
@@ -90,11 +92,15 @@ class TorrentFile(
       output.write(data)
       data = input.read()
     }
-    //	    var sha12 = output.toByteArray().sha1
+    // var sha12 = output.toByteArray().sha1
 
     sha1.update(output.toByteArray(), 0, output.size() - 1);
+    
     var hash = sha1.digest()
-    println(sha1)
+    
+
+    var infohash = URLEncoder.encode(new String(hash),"UTF-8")
+    println(infohash)
 
     var hextString = new StringBuffer
     for (x <- 0 until hash.length) {
@@ -106,8 +112,10 @@ class TorrentFile(
     // Multiple Torrent
     input = new FileInputStream(ff)
     builder = new StringBuilder
-     while (!builder.toString.endsWith(":pieces")) {
-      builder.append(input.read.toChar); // It's ASCII anyway.
+    var res = 0
+     while (!builder.toString.endsWith(":pieces") && res != -1) {
+      var res = input.read
+      builder.append(data.toChar); // It's ASCII anyway.
     }
      var pieces = ""
      data = input.read
